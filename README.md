@@ -1,8 +1,8 @@
 # in_app_update_flutter
 
-A Flutter plugin for in-app updates on both iOS and Android.
+A Flutter plugin for unified in-app updates on Android (Google Play) and iOS (App Store), allowing users to update without leaving the app.
 
-On **iOS**, it presents the App Store product page using `SKStoreProductViewController` (StoreKit), keeping users inside the app during the update flow. On **Android**, it integrates with Google Play's In-App Updates API to support both immediate (blocking) and flexible (background) update flows.
+On iOS, it displays the App Store product page using SKStoreProductViewController while keeping users inside the app. On Android, it integrates with Google Play’s In-App Updates API to support both immediate (blocking) and flexible (background) update flows.
 
 ---
 
@@ -14,33 +14,43 @@ On **iOS**, it presents the App Store product page using `SKStoreProductViewCont
 
 ---
 
+## Why `in_app_update_flutter`?
+
+This package provides a **single unified API for both Android and iOS in-app updates**, unlike platform-specific or partial solutions.
+
+| Feature | in_app_update_flutter | in_app_update | upgrader |
+|--------|----------------------|--------------|-----------|
+| Android Play Core updates | ✅ | ✅ | ❌ |
+| iOS App Store in-app prompt | ✅ | ❌ | ⚠️ (redirect only) |
+| Immediate update support | ✅ | ❌ | ❌ |
+| Flexible update support | ✅ | ❌ | ❌ |
+| Unified API for both platforms | ✅ | ❌ | ❌ |
+
 ## Features
 
-- iOS: Show the App Store update prompt using `SKStoreProductViewController` without navigating users away from the app
-- iOS: Native Swift implementation with zero AppDelegate configuration required
-- iOS: Supports both Swift Package Manager (SPM) and CocoaPods
-- Android: Check update availability and metadata via the Play Core API
-- Android: Immediate update flow — full-screen, blocking prompt the user must accept
-- Android: Flexible update flow — background download while the user continues using the app
-- Android: Install state stream for monitoring flexible update download progress
-- Works on Flutter with a simple, unified API
+- iOS: Show App Store update prompt using SKStoreProductViewController
+- iOS: Native Swift implementation with zero AppDelegate configuration
+- iOS: Supports CocoaPods and Swift Package Manager (SPM)
+- Android: Check update availability via Google Play Core API
+- Android: Immediate update flow (blocking full-screen update)
+- Android: Flexible update flow (background download)
+- Android: Install state stream for update progress tracking
+- Unified Flutter API across both platforms
 
 ---
 
 ## Installation
 
-Add the package to your `pubspec.yaml`:
+Add the dependency:
 
 ```yaml
 dependencies:
   in_app_update_flutter: ^2.0.3
-```
 
-Then run:
+Then
 
-```bash
 flutter pub get
-```
+
 
 ---
 
@@ -139,6 +149,24 @@ flutter run
 
 ---
 
+## FAQ
+
+### 1. Does this work on iOS?
+
+Yes, but iOS only supports showing the App Store product page inside the app. It does not support forced updates like Android.
+
+### 2. Does it work on Android outside Google Play?
+
+No. Android in-app updates require the app to be installed from Google Play.
+
+### 3. Can I use it on simulators?
+
+No. iOS update flow requires a real device.
+
+### 4. Does this require native setup?
+
+No. iOS requires no AppDelegate configuration. Android works via Play Core integration internally.
+
 ## License
 
 [MIT License](LICENSE)
@@ -147,4 +175,6 @@ flutter run
 
 ## Contributing
 
-Pull requests and feedback are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Contributions are welcome. Please open issues or pull requests for improvements.
+
+⭐ If you find this package useful, please star the repository — it helps others discover it.
